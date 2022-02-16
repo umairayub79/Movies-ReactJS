@@ -14,21 +14,19 @@ const MovieDetails = () => {
     }
     useEffect(() => {
         getMovie()
-    }, [])
+    }, [id])
     return (
         <div>
             <div className="container px-5 py-5 flex flex-col items-center justify-center md:justify-between md:flex-row">
-                <img src={movie.medium_cover_image} alt={movie.slug} className="w-96" />
-                <div>
+                <img src={movie.medium_cover_image} alt={movie.slug} className="w-full" />
+                <div className="py-5 md:px-10">
                     <h2 className="text-4xl font-semibold mt-1">{movie.title}</h2>
                     <div className="flex items-center text-gray-500 text-sm">
-                        <span className="ml-1">{movie.rating}</span>
-                        <span className="mx-2">|</span>
-                        <span>{movie.year}</span>
-                        <span className="mx-2">|</span>
+                        <span>{movie.rating} |</span>
+                        <span>{movie.runtime} |</span>
+                        <span>{movie.year} |</span>
                         <span>{movie.mpa_rating}</span>
-                        <span className="mx-2">|</span>
-                        {genres.map(item => <span className="pr-2" key={item}>{item}</span>)}
+                        {genres.map(item => <span className="pr-2" key={item}> | {item}</span>)}
                     </div>
 
                     <p className="text-gray-600 mt-4">
