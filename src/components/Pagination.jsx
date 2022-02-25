@@ -59,7 +59,7 @@ const Pagination = ({ total_items, currentPage, gotoPage }) => {
     }
 
     return (
-        <div className="flex justify-center space-x-2 m-2">
+        <div className="flex flex-wrap justify-center space-x-2 m-2">
             {console.log("pagination")}
             <span onClick={() => gotoPage(1)} className={pager.currentPage === 1 ? 'cursor-not-allowed flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md' : 'cursor-pointer flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md'}>
                 First

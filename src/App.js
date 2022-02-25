@@ -11,7 +11,7 @@ const App = () => {
   return (
     <div>
       <Navbar />
-    <div className="flex flex-col justify-center justify-items-center">
+    <div>
         <Routes>
           <Route path="/" element={<Movies/>} />
           <Route path="/movie/:id" element={<MovieDetails/>} />

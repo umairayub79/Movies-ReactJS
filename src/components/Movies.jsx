@@ -7,7 +7,7 @@ import Pagination from './Pagination'
 const Movies = () => {
     const [response, setResponse] = useState([])
     const [movies, setMovies] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [page, setPage] = useState(1)
     const [error, setError] = useState()
     const { query } = useParams()
@@ -45,16 +45,13 @@ const Movies = () => {
 
 
     return (
-        <div>
-            {!loading ? (query ? <div>Search Results: </div> : "") : <div></div>}
-            <div className='p-5 grid grid-cols-2 gap-4 md:grid-cols-4'>
-                {!loading ? (movies ? movies.map((movie) => (<Movie key={movie.id} movie={movie} />)) : <h1>Nothing found</h1>) : <h1>Loading</h1>}
-            </div>
-            <div>
-                {!loading ? <Pagination total_items={response.movie_count} currentPage={page} gotoPage={gotoPage} /> : ""}
-            </div>
+        <div className="container mx-auto">
+        {query ? (<h1 className="text-2xl font-bold p-3">Search Results:</h1>) : (<h1 className="text-2xl font-bold p-3">Explore</h1>)}
+        {loading ? (<h1 className="text-center">Loading</h1>) : (<div>
+        {movies ? (<div className='p-5 grid grid-cols-2 gap-4 md:grid-cols-4'> {movies.map((movie) => (<Movie key={movie.id} movie={movie} />))}, </div>) : (null) }
+        <Pagination total_items={response.movie_count} currentPage={page} gotoPage={gotoPage} />
+        </div>)}
         </div>
-    )
+        )
 }
-
 export default Movies
