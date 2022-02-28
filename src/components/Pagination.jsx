@@ -1,4 +1,5 @@
 import React from 'react'
+import {GrNext, GrPrevious} from 'react-icons/gr'
 
 const Pagination = ({ total_items, currentPage, gotoPage }) => {
 
@@ -59,23 +60,26 @@ const Pagination = ({ total_items, currentPage, gotoPage }) => {
     }
 
     return (
-        <div className="flex flex-wrap justify-center space-x-2 m-2">
-            {console.log("pagination")}
-            <span onClick={() => gotoPage(1)} className={pager.currentPage === 1 ? 'cursor-not-allowed flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md' : 'cursor-pointer flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md'}>
-                First
-            </span>
-            <span onClick={() => gotoPage(pager.currentPage - 1)} className={pager.currentPage === 1 ? 'cursor-not-allowed flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md' : 'cursor-pointer flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md'}>
-                Previous
-            </span>
-            {pager.pages.map((page, index) =>
-                <span key={index} className={pager.currentPage === page ? 'active cursor-pointer flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md' : 'cursor-pointer flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md'} onClick={() => gotoPage(page)}>{page}</span>
-            )}
-            <span onClick={() => gotoPage(pager.currentPage + 1)} className={pager.currentPage === pager.totalPages ? 'cursor-not-allowed flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md' : 'cursor-pointer flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md'}>
-                Next
-            </span>
-            <span onClick={() => gotoPage(pager.totalPages)} className={pager.currentPage === pager.totalPages ? 'cursor-not-allowed flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md' : 'cursor-pointer flex items-center px-4 py-2 text-gray-500 bg-gray-300 rounded-md'}>
-                Last
-            </span>
+        <div className="container ms-auto flex flex-wrap justify-center items-center space-x-2 p-5">
+           
+            
+            <button onClick={() => gotoPage(pager.currentPage - 1)} className={pager.currentPage === 1 ? 'cursor-not-allowed' : 'cursor-pointer py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-300 focus:shadow-none'}>
+                <GrPrevious/>
+            </button>
+            
+            <div className="flex items-center justify-center">
+              <div className="inline-flex" role="toolbar">
+              {pager.pages.map((page,index) =>
+                 <button key={index} type="button"  className={pager.currentPage === page ? 'active py-1.5 px-3 mx-1 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-300 focus:shadow-none' : 'page-link relative block py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-200 focus:shadow-none'} onClick={() => gotoPage(page)}>{page}</button>
+                 )}
+               </div>
+            </div>
+            
+            <button onClick={() => (pager.currentPage < pager.totalPages) && gotoPage(pager.currentPage + 1)} className={pager.currentPage === pager.totalPages ? 'cursor-not-allowed' : 'cursor-pointer py-1.5 px-3 rounded border-0 bg-transparent outline-none transition-all duration-300 rounded text-gray-800 hover:text-gray-800 hover:bg-gray-300 focus:shadow-none'}>
+                <GrNext/>
+            </button>
+            
+            
         </div>
     )
 }
