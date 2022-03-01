@@ -40,6 +40,7 @@ const Movies = () => {
     
     useEffect(() => {
         setLoading(true)
+        setError(null)
         getMovies()
     }, [page, query])
 
@@ -47,13 +48,13 @@ const Movies = () => {
 
     return (
         <div className="container mx-auto">
-        {query ? (<h1 className="text-2xl font-bold p-3">Search Results:</h1>) : (<h1 className="text-2xl font-bold p-3">Explore</h1>)}
-        {loading ? (<h1 className="text-center">Loading</h1>) : (
-        <div>
-        {movies ? (<div className='p-5 grid grid-cols-2 gap-4 md:grid-cols-5'> {movies.map((movie) => (<Movie key={movie.id} movie={movie} />))} </div>) : (null) }
-        <Pagination total_items={response.movie_count} currentPage={page} gotoPage={gotoPage} />
-        </div>)}
+          {query ? (<h1 className="text-2xl font-bold p-3">Search Results: ({response.movie_count})</h1>) : (<h1 className="text-2xl font-bold p-3">Explore</h1>)}
+          {error ? (<h1 className="text-center text-2xl text-red-400 font-bold p-3">{error.message}</h1>) : (loading ? (<h1 className="text-center">Loading</h1>) : (
+          <div>
+            {movies ? (<div className='p-5 grid grid-cols-2 gap-4 md:grid-cols-5'> {movies.map((movie) => (<Movie key={movie.id} movie={movie} />))} </div>) : (<h1 className="text-center">Nothing found</h1>) }
+            <Pagination total_items={response.movie_count} currentPage={page} gotoPage={gotoPage} />
+          </div>))} 
         </div>
-        )
+    )
 }
 export default Movies
