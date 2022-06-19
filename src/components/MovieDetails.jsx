@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import {useParams} from 'react-router-dom'
 import axios from 'axios';
-import {MdStar} from 'react-icons/md'
-
+import {MdStar,MdDownload} from 'react-icons/md'
+import {FaDownload} from 'react-icons/fa'
 const MovieDetails = () => {
     const [movie, setMovie] = useState([])
     const [genres, setGenres] = useState([])
+    const [torrents, setTorrents] = useState([])
     const [error, setError] = useState()
     const { id } = useParams()
 
@@ -14,6 +15,7 @@ const MovieDetails = () => {
         const response = await axios.get(`https://yts.mx/api/v2/movie_details.json?movie_id=${id}&with_images=true`)
         setMovie(response.data.data.movie)
         setGenres(response.data.data.movie.genres)
+        setTorrents(response.data.data.movie.torrents)
       } catch (e) {
         setError(e)
       }
@@ -39,6 +41,12 @@ const MovieDetails = () => {
                     <p className="text-gray-600">
                         {movie.description_intro}
                     </p>
+                    <hr/>
+                    <div className="">
+                  
+                      <h3 className="text-1xl font-semibold text-gray-700 mt-2">Download</h3>
+                      {torrents.map(torrent => <a href={torrent.url}><div className="border-2 flex flex-row space-x-8 mt-4"> <div>{torrent.type}.{torrent.quality}</div> <div>{torrent.size}</div> <FaDownload className="ml-2"/></div></a>)}
+                    </div>
                     
                     <div className="mt-5">
                     <h3 className="text-1xl font-semibold text-gray-700 mt-2">Watch Trailer</h3>
